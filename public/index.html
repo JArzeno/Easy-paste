@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easy Paste · Share text or files with a link</title>
+<meta name="description" content="Paste text or pick a file, get a link, and send it to anyone or to yourself. Links expire in {{ttlHours}} hours.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<main class="wrap" data-max-file-bytes="{{maxFileBytes}}" data-max-text-bytes="{{maxTextBytes}}" data-ttl-hours="{{ttlHours}}">
+  <header class="brand">
+    <a href="/" class="logo"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M11 9.5h10a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H11A1.5 1.5 0 0 1 9.5 23V11A1.5 1.5 0 0 1 11 9.5Z" fill="none" stroke="#fff" stroke-width="2"/><path d="M13 14h6M13 17.5h6M13 21h3.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="12.5" y="7" width="7" height="4" rx="1.5" fill="#fff"/></svg><span>Easy Paste</span></a>
+  </header>
+
+  <section class="hero">
+    <h1>Share text or a file with a link.</h1>
+    <p class="muted">No account needed. The link stops working after {{ttlHours}} hours.</p>
+  </section>
+
+  <section class="card" id="composer">
+    <form id="form" novalidate>
+      <div class="switch" role="radiogroup" aria-label="What do you want to share?">
+        <input type="radio" name="mode" id="mode-text" value="text" checked>
+        <label for="mode-text">Text</label>
+        <input type="radio" name="mode" id="mode-file" value="file">
+        <label for="mode-file">File</label>
+      </div>
+
+      <div class="panel" data-panel="text">
+        <label class="sr-only" for="text">Text to share</label>
+        <textarea id="text" placeholder="Paste or type anything..." spellcheck="false" autofocus></textarea>
+      </div>
+
+      <div class="panel" data-panel="file" hidden>
+        <label class="drop" id="drop" for="file">
+          <input type="file" id="file" class="sr-only">
+          <span class="drop-empty" id="drop-empty">
+            <strong>Choose a file</strong> or drag it here
+            <span class="muted small">You can also paste a screenshot. Up to {{maxFileSize}}.</span>
+          </span>
+          <span class="drop-picked" id="drop-picked" hidden>
+            <span class="picked-name" id="picked-name"></span>
+            <span class="muted small" id="picked-size"></span>
+            <span class="link-like small">Choose a different file</span>
+          </span>
+        </label>
+      </div>
+
+      <p class="error" id="error" role="alert" hidden></p>
+      <button class="button primary wide" type="submit" id="submit">Create link</button>
+    </form>
+  </section>
+
+  <section class="card result" id="result" hidden>
+    <p class="result-title">Your link is ready</p>
+    <div class="link-row">
+      <label class="sr-only" for="link">Share link</label>
+      <input id="link" type="text" readonly>
+      <button type="button" class="button primary" id="copy">Copy</button>
+    </div>
+    <p class="muted small" id="expires"></p>
+    <div class="actions">
+      <a class="button" id="open" href="/" target="_blank" rel="noopener">Open</a>
+      <button type="button" class="button" id="share" hidden>Share</button>
+      <button type="button" class="button" id="again">Share something else</button>
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>How it works</h2>
+    <ol>
+      <li><span class="step">1</span><div><strong>Paste or pick.</strong> Add your text, or switch to File and choose one.</div></li>
+      <li><span class="step">2</span><div><strong>Get a link.</strong> Click Create link and copy it.</div></li>
+      <li><span class="step">3</span><div><strong>Send it.</strong> Share it with anyone, or open it on your other device. It is deleted after {{ttlHours}} hours.</div></li>
+    </ol>
+  </section>
+</main>
+</body>
+</html>
